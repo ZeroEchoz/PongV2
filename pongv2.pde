@@ -1,4 +1,8 @@
-void setup ()  //<>//
+//git add .  //<>//
+//git commit -m ""
+//git push
+
+void setup () 
 {
   size(1250, 800);
   smooth();
@@ -18,8 +22,8 @@ void setup ()  //<>//
   ballR = 20;
   ballSpeed = 5;
 
-  paddle2X = width - 125;
-  paddle2Y = width - 400;
+  paddle2X = width  - 125;
+  paddle2Y = height - 400;
   paddle2Width = 15;
   paddle2Length = 150;
 }
@@ -97,13 +101,13 @@ void paddle2()
   rect(paddle2X, paddle2Y, paddle2Width, paddle2Length);
   if (keyPressed)
   {
-    if (keyCode == UP) 
+    if (key == 'o' || key == 'O') 
     {
-      paddleY -= speed;
+      paddle2Y -= speed2;
     }
-    if (key == 's' || key == 'S') 
+    if (key == 'l' || key == 'L') 
     {
-      paddleY += speed;
+      paddle2Y += speed2;
     }
   }
 }
@@ -121,6 +125,13 @@ void collision()
   if (ballX < paddleX) {
     if (ballY < paddleY + paddleLength + ballR && ballY > paddleY - ballR) {
       ballSpeed *= -1;
+      paddleLength *= 0.75f;
+    }
+  }
+  if (ballX > paddle2X) {
+    if (ballY < paddle2Y + paddle2Length + ballR && ballY > paddle2Y - ballR) {
+      ballSpeed *= -1;
+      paddle2Length *= 0.75f;
     }
   }
 }
