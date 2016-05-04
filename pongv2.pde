@@ -15,8 +15,8 @@ void setup ()
   paddleX = 125;
   paddleY = 400;
 
-  speed = 4;
-  speedPaddle = 5;
+  speed = 3;
+  speedPaddle = 15;
   speedBoost = 10;
 
   ballX = 625;
@@ -36,6 +36,8 @@ void setup ()
     screen = 0;
   }
 }
+
+boolean[] keyPress = new boolean[4];
 
 float stageLine = 350;
 float lineLength = 20;
@@ -105,6 +107,49 @@ void stage()
   }
 }
 
+void keyPressed() {
+  //move left paddle
+  if (key == 'w') {
+    keyPress[0] = true;
+    paddleY -= speedPaddle;
+  } 
+  if (key == 's') {
+    keyPress[1] = true;
+    paddleY += speedPaddle;
+  }
+
+//move right paddle
+  if (key == 'o') {
+    keyPress[0] = true;
+    paddle2Y -= speedPaddle;
+  } 
+  if (key == 'l') {
+    keyPress[1] = true;
+    paddle2Y += speedPaddle;
+  }
+}
+
+void keyReleased() {
+  //move left paddle
+  if (key == 'w') {
+    keyPress[0] = false;
+    paddleY -= speedPaddle;
+  } 
+  if (key == 's') {
+    keyPress[1] = false;
+    paddleY += speedPaddle;
+  }
+  //move right paddle
+  if (key == 'o') {
+    keyPress[0] = true;
+    paddle2Y -= speedPaddle;
+  } 
+  if (key == 'l') {
+    keyPress[1] = true;
+    paddle2Y += speedPaddle;
+  }
+}
+
 void paddle()
 {
   paddleTop = paddleY - paddleLength/2;
@@ -113,17 +158,17 @@ void paddle()
   fill(255);
   rect(paddleX, paddleY, paddleWidth, paddleLength);
 
-  if (keyPressed)
-  {
-    if (key == 'w' || key == 'W') 
-    {
-      paddleY -= speed;
-    }
-    if (key == 's' || key == 'S') 
-    {
-      paddleY += speed;
-    }
-  }
+  //  if (keyPressed)
+  //  {
+  //    if (key == 'w' || key == 'W') 
+  //    {
+  //      paddleY -= speed;
+  //    }
+  //    if (key == 's' || key == 'S') 
+  //    {
+  //      paddleY += speed;
+  //    }
+  //  }
 }
 
 void paddle2() 
@@ -131,17 +176,17 @@ void paddle2()
   rectMode(CENTER);
   fill(255);
   rect(paddle2X, paddle2Y, paddle2Width, paddle2Length);
-  if (keyPressed)
-  {
-    if (key == 'o' || key == 'O') 
-    {
-      paddle2Y -= speedPaddle;
-    }
-    if (key == 'l' || key == 'L') 
-    {
-      paddle2Y += speedPaddle;
-    }
-  }
+  //if (keyPressed)
+  //{
+  //  if (key == 'o' || key == 'O') 
+  //  {
+  //    paddle2Y -= speedPaddle;
+  //  }
+  //  if (key == 'l' || key == 'L') 
+  //  {
+  //    paddle2Y += speedPaddle;
+  //  }
+  //}
 }
 
 void ball()
@@ -155,7 +200,7 @@ void ball()
 
 void collision() 
 {
-  if (ballX < paddleX - paddleWidth ) {
+  if (ballX - ballR < paddleX - paddleWidth ) {
     if (ballY < paddleY + paddleLength + ballR && ballY > paddleY - ballR) {
       directionX *= -1;
       delay(50);
@@ -164,7 +209,7 @@ void collision()
     }
   }
 
-  if (ballX > paddle2X - paddleWidth) {
+  if (ballX + ballR > paddle2X + paddleWidth) {
     if (ballY < paddle2Y + paddle2Length + ballR && ballY > paddle2Y - ballR) {
       directionX *= -1;
       delay(50);
@@ -173,11 +218,11 @@ void collision()
     }
   }
 
-  if (ballY < height * 0.5f - stageLine) {
+  if (ballY - ballR < height * 0.5f - stageLine) {
     directionY *= -1;
   }
 
-  if (ballY > height * 0.5f + stageLine) {
+  if (ballY + ballR > height * 0.5f + stageLine) {
     directionY *= -1;
   }
 }
