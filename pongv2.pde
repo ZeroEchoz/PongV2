@@ -1,4 +1,4 @@
-//git add .  //<>//
+//git add .  //<>// //<>//
 //git commit -m ""
 //git push
 
@@ -7,7 +7,7 @@ void setup ()
   size(1250, 800);
   smooth();
   background(0);
-  
+
   delay(100);
 
   paddleLength = 150;
@@ -30,6 +30,8 @@ void setup ()
   paddle2Width = 15;
   paddle2Length = 150;
 
+  hits = 0;
+  
   if (scoreL == 0 && scoreR == 0) {
     screen = 0;
   }
@@ -67,9 +69,12 @@ int scoreR;
 
 int screen;
 
+int hits;
+
 void draw() 
 {
   frameRate(90);
+  mainMenu();
   if (screen == 1) {
     ball();
     stage();
@@ -153,6 +158,7 @@ void collision()
       directionX *= -1;
       delay(50);
       paddleLength *= 0.75f;
+      hits ++;
     }
   }
 
@@ -161,6 +167,7 @@ void collision()
       directionX *= -1;
       delay(50);
       paddle2Length *= 0.75f;
+      hits ++;
     }
   }
 
@@ -183,6 +190,12 @@ void score()
   //score right
   stroke(255);
   text(" " + scoreR, width - 150, 30);
+  //hits
+  stroke(255);
+  textAlign(CENTER);
+  textSize(30);
+  text(" Total Hits: " + hits, width / 2 + 6, 30);
+
   if (ballX > width)
   {
     scoreL ++;
@@ -205,13 +218,27 @@ void startMenu ()
   text(" Press Space To Play! ", width / 2, height / 2 + 250);
   textSize(50);
   text(" PONG v2 ", width / 2, height / 2 - 100);
-  
+
 
   if (keyPressed)
   {
     if (key == ' ') 
     {
       screen = 1;
+    }
+  }
+}
+
+void mainMenu() 
+{
+  if (keyPressed)
+  {
+    if (key == 'r' || key == 'R') 
+    {
+      screen = 0;
+      scoreL = 0;
+      scoreR = 0;
+      setup();
     }
   }
 }
