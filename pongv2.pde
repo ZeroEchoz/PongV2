@@ -31,7 +31,7 @@ void setup ()
   paddle2Length = 150;
 
   hits = 0;
-  
+
   if (scoreL == 0 && scoreR == 0) {
     screen = 0;
   }
@@ -75,6 +75,7 @@ void draw()
 {
   frameRate(90);
   mainMenu();
+
   if (screen == 1) {
     ball();
     stage();
@@ -82,6 +83,7 @@ void draw()
     collision();
     score();
     paddle2();
+    gameOver();
   }
 
   if (screen == 0) {
@@ -240,5 +242,35 @@ void mainMenu()
       scoreR = 0;
       setup();
     }
+  }
+}
+
+void gameOver()
+{
+
+  if (scoreR == 3) 
+  {
+    background(0);
+    textAlign(CENTER);
+    textSize(50);
+    stroke(255);
+    text("Player 1 Wins!", width / 2, height / 2);
+    text("Press 'R' to restart", width / 2, height / 2 + 100);
+
+    directionY = 0;
+    directionX = 0;
+  }
+
+  if (scoreL == 3) 
+  {
+    background(0);
+    textAlign(CENTER);
+    textSize(50);
+    stroke(255);
+    text("Player 2 Wins!", width / 2, height / 2);
+    text("Press 'R' to restart", width / 2, height / 2 + 100);
+
+    directionY = 0;
+    directionX = 0;
   }
 }
