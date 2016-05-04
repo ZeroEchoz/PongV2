@@ -7,6 +7,8 @@ void setup ()
   size(1250, 800);
   smooth();
   background(0);
+  
+  delay(100);
 
   paddleLength = 150;
   paddleWidth = 15;
@@ -27,6 +29,10 @@ void setup ()
   paddle2Y = height - 400;
   paddle2Width = 15;
   paddle2Length = 150;
+
+  if (scoreL == 0 && scoreR == 0) {
+    screen = 0;
+  }
 }
 
 float stageLine = 350;
@@ -59,14 +65,23 @@ float paddleBottom;
 int scoreL;
 int scoreR;
 
+int screen;
+
 void draw() 
 {
-  ball();
-  stage();
-  paddle();
-  collision();
-  score();
-  paddle2();
+  frameRate(90);
+  if (screen == 1) {
+    ball();
+    stage();
+    paddle();
+    collision();
+    score();
+    paddle2();
+  }
+
+  if (screen == 0) {
+    startMenu();
+  }
 }
 
 
@@ -133,7 +148,7 @@ void ball()
 
 void collision() 
 {
-  if (ballX < paddleX + paddleWidth ) {
+  if (ballX < paddleX - paddleWidth ) {
     if (ballY < paddleY + paddleLength + ballR && ballY > paddleY - ballR) {
       directionX *= -1;
       delay(50);
@@ -141,7 +156,7 @@ void collision()
     }
   }
 
-  if (ballX > paddle2X + paddleWidth) {
+  if (ballX > paddle2X - paddleWidth) {
     if (ballY < paddle2Y + paddle2Length + ballR && ballY > paddle2Y - ballR) {
       directionX *= -1;
       delay(50);
@@ -164,20 +179,39 @@ void score()
   textSize(30);
   stroke(255);
   //score left
-  text(" " + scoreL, 10, 30);
+  text(" " + scoreL, 150, 30);
   //score right
   stroke(255);
-  text(" " + scoreR, width - 50, 30);
+  text(" " + scoreR, width - 150, 30);
   if (ballX > width)
   {
-    setup();
     scoreL ++;
+    setup();
   }
-  
+
   if (ballX < 0)
   {
-    
-    setup();
     scoreR ++;
+    setup();
+  }
+}
+
+
+void startMenu () 
+{
+  textAlign(CENTER);
+  textSize(25);
+  background (0);
+  text(" Press Space To Play! ", width / 2, height / 2 + 250);
+  textSize(50);
+  text(" PONG v2 ", width / 2, height / 2 - 100);
+  
+
+  if (keyPressed)
+  {
+    if (key == ' ') 
+    {
+      screen = 1;
+    }
   }
 }
