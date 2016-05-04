@@ -1,4 +1,4 @@
-//git add . 
+//git add .  //<>//
 //git commit -m ""
 //git push
 
@@ -8,6 +8,11 @@ void setup ()
   smooth();
   background(0);
 
+  screen = 0;
+}
+
+void reset() 
+{
   paddleLength = 150;
   paddleWidth = 15;
   paddleX = 125;
@@ -28,7 +33,6 @@ void setup ()
   paddle2Width = 15;
   paddle2Length = 150;
 }
-
 float stageLine = 350;
 float lineLength = 20;
 
@@ -59,14 +63,22 @@ float paddleBottom;
 int scoreL;
 int scoreR;
 
+int screen;
+
 void draw() 
 {
-  ball();
-  stage();
-  paddle();
-  collision();
-  score();
-  paddle2();
+  if (screen == 1) {
+    ball();
+    stage();
+    paddle();
+    collision();
+    score();
+    paddle2();
+  }
+
+  if (screen == 0) {
+    startMenu();
+  }
 }
 
 
@@ -170,14 +182,29 @@ void score()
   text(" " + scoreR, width - 50, 30);
   if (ballX > width)
   {
-    setup();
+    reset();
     scoreL ++;
   }
-  
+
   if (ballX < 0)
   {
-    
-    setup();
+
+    reset();
     scoreR ++;
+  }
+}
+
+
+void startMenu () 
+{
+  background (0);
+  text(" Press Space To Play! ", width / 2, height / 2);
+
+  if (keyPressed)
+  {
+    if (key == ' ') 
+    {
+      screen = 1;
+    }
   }
 }
