@@ -1,6 +1,7 @@
 //git add .  //<>//
 //git commit -m ""
 //git push
+//FREE sound fx gotten from: https://www.freesound.org/
 
 void setup () 
 {
@@ -262,7 +263,6 @@ void startMenu ()
   
   rectMode(CENTER);
   stroke(255);
-  strokeWeight(10);
   noFill();
   rect(width / 2, height / 2, 1050, 600);
 
