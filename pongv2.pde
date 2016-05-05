@@ -34,6 +34,11 @@ void setup ()
 
   hits = 0;
 
+  if (scoreL < scoreR || scoreR < scoreL)
+  {
+    directionX *= -1;
+  }
+
   if (scoreL == 0 && scoreR == 0) {
 
     screen = 0;
@@ -246,9 +251,20 @@ void startMenu ()
   textAlign(CENTER);
   textSize(25);
   background (0);
-  text(" Press Space To Play! ", width / 2, height / 2 + 250);
+  text(" Press Space To Play! ", width / 2, height / 2 + 150);
   textSize(50);
-  text(" PONG v2 ", width / 2, height / 2 - 100);
+  text(" PONG v2 ", width / 2, height / 2 - 200);
+  textSize(30);
+  text("Player 1: W + S to Move", width / 2, height / 2 - 75);
+  text("Player 2: Mouse to Move", width / 2, height / 2);
+  textSize(15);
+  text("By Kristian Alvin Bongo", width / 2, height / 2 + 270);
+  
+  rectMode(CENTER);
+  stroke(255);
+  strokeWeight(10);
+  noFill();
+  rect(width / 2, height / 2, 1050, 600);
 
 
   if (keyPressed)
@@ -283,7 +299,7 @@ void mainMenu()
 void gameOver()
 {
 
-  if (scoreR == 3) 
+  if (scoreR == 5) 
   {
     background(0);
     textAlign(CENTER);
@@ -296,7 +312,7 @@ void gameOver()
     directionX = 0;
   }
 
-  if (scoreL == 3) 
+  if (scoreL == 5) 
   {
     background(0);
     textAlign(CENTER);
