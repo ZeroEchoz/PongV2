@@ -70,6 +70,9 @@ int hits;
 
 boolean[] keys = new boolean[2000];
 
+float[] trailX = new float[30];
+float[] trailY = new float[30];
+
 void draw() 
 {
   frameRate(90);
@@ -136,16 +139,28 @@ void paddle2()
 {
   rectMode(CENTER);
   fill(255);
-  rect(paddle2X,mouseY, paddle2Width, paddle2Length);
+  rect(paddle2X, mouseY, paddle2Width, paddle2Length);
 }
 
 void ball()
 {
   background(0);
+  noStroke();
   fill(255);
   ellipse(ballX, ballY, ballR, ballR);
   ballX = ballX + speed * directionX;
   ballY = ballY + speed * directionY;
+
+  for (int i = 0; i < 29; i++) 
+  {
+    trailX[i] = trailX[i+1];
+    trailY[i] = trailY[i+1];
+    
+   ellipse (trailX[i], trailY[i], i, i);
+
+  }
+  trailX[29] = ballX;
+  trailY[29] = ballY;
 }
 
 void collision() 
