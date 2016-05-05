@@ -143,8 +143,8 @@ void ball()
 
 void collision() 
 {
-  if (ballX < paddleX - paddleWidth ) {
-    if (ballY < paddleY + paddleLength + ballR && ballY > paddleY - ballR) {
+  if (ballX < paddleX + paddleWidth ) {
+    if (ballY + ballR < paddleY + paddleLength / 2 && ballY - ballR > paddleY - paddleLength / 2) {
       directionX *= -1;
       delay(50);
       paddleLength *= 0.75f;
@@ -153,7 +153,7 @@ void collision()
   }
 
   if (ballX > paddle2X - paddleWidth) {
-    if (ballY < mouseY + paddle2Length + ballR && ballY > mouseY - ballR) {
+    if (ballY + ballR < mouseY + paddle2Length / 2 && ballY - ballR > mouseY - paddle2Length / 2) {
       directionX *= -1;
       delay(50);
       paddle2Length *= 0.75f;
