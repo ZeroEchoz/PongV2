@@ -4,8 +4,10 @@
 
 void setup () 
 {
+  minim = new Minim(this);
+  song = minim.loadFile("ding3.wav");
+  song.play();
   size(1250, 800);
-  smooth();
   background(0);
 
   delay(100);
@@ -33,9 +35,14 @@ void setup ()
   hits = 0;
 
   if (scoreL == 0 && scoreR == 0) {
+
     screen = 0;
   }
 }
+
+import ddf.minim.*;
+Minim minim;
+AudioPlayer song;
 
 float stageLine = 350;
 float lineLength = 20;
@@ -75,6 +82,7 @@ float[] trailY = new float[30];
 
 void draw() 
 {
+  smooth();
   frameRate(90);
   mainMenu();
 
@@ -155,9 +163,8 @@ void ball()
   {
     trailX[i] = trailX[i+1];
     trailY[i] = trailY[i+1];
-    
-   ellipse (trailX[i], trailY[i], i, i);
 
+    ellipse (trailX[i], trailY[i], i, i);
   }
   trailX[29] = ballX;
   trailY[29] = ballY;
@@ -168,19 +175,21 @@ void collision()
   if (ballX < paddleX + paddleWidth ) {
     if (ballY + ballR < paddleY + paddleLength / 2 && ballY - ballR > paddleY - paddleLength / 2) {
       directionX *= -1;
+      minim = new Minim(this);
+      song = minim.loadFile("pongHit.wav");
+      song.play();
       delay(50);
       paddleLength *= 0.75f;
       hits ++;
-    }
-    if (paddleY - paddleLength / 2 <= height * 0.5f - stageLine)
-    {
-      paddleY += speedPaddle;
     }
   }
 
   if (ballX > paddle2X - paddleWidth) {
     if (ballY + ballR < mouseY + paddle2Length / 2 && ballY - ballR > mouseY - paddle2Length / 2) {
       directionX *= -1;
+      minim = new Minim(this);
+      song = minim.loadFile("pongHit.wav");
+      song.play();
       delay(50);
       paddle2Length *= 0.75f;
       hits ++;
@@ -189,10 +198,16 @@ void collision()
 
   if (ballY < height * 0.5f - stageLine) {
     directionY *= -1;
+    minim = new Minim(this);
+    song = minim.loadFile("pongHit2.wav");
+    song.play();
   }
 
   if (ballY > height * 0.5f + stageLine) {
     directionY *= -1;
+    minim = new Minim(this);
+    song = minim.loadFile("pongHit2.wav");
+    song.play();
   }
 }
 
@@ -240,6 +255,9 @@ void startMenu ()
   {
     if (key == ' ') 
     {
+      minim = new Minim(this);
+      song = minim.loadFile("ding.wav");
+      song.play();
       screen = 1;
     }
   }
@@ -251,6 +269,9 @@ void mainMenu()
   {
     if (key == 'r' || key == 'R') 
     {
+      minim = new Minim(this);
+      song = minim.loadFile("ding.wav");
+      song.play();
       screen = 0;
       scoreL = 0;
       scoreR = 0;
