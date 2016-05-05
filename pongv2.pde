@@ -1,4 +1,4 @@
-//git add .  //<>// //<>// //<>//
+//git add .  //<>//
 //git commit -m ""
 //git push
 
@@ -68,7 +68,7 @@ int screen;
 
 int hits;
 
-boolean[] keyPress = new boolean[2];
+boolean[] keys = new boolean[2000];
 
 void draw() 
 {
@@ -90,6 +90,13 @@ void draw()
   }
 }
 
+void keyPressed() {
+  keys[keyCode] = true;
+}
+
+void keyReleased() {
+  keys[keyCode] = false;
+}
 
 void stage() 
 {
@@ -114,12 +121,12 @@ void paddle()
   {
     if (key == 'w' || key == 'W') 
     {
-      keyPress[0] = true;
+      keys[0] = true;
       paddleY -= speed;
     }
     if (key == 's' || key == 'S') 
     {
-      keyPress[1] = true;
+      keys[1] = true;
       paddleY += speed;
     }
   }
@@ -149,6 +156,10 @@ void collision()
       delay(50);
       paddleLength *= 0.75f;
       hits ++;
+    }
+    if (paddleY - paddleLength / 2 <= height * 0.5f - stageLine)
+    {
+      paddleY += speedPaddle;
     }
   }
 
@@ -242,7 +253,7 @@ void gameOver()
     textAlign(CENTER);
     textSize(50);
     stroke(255);
-    text("Player 1 Wins!", width / 2, height / 2);
+    text("Player 2 Wins!", width / 2, height / 2);
     text("Press 'R' to restart", width / 2, height / 2 + 100);
 
     directionY = 0;
@@ -255,7 +266,7 @@ void gameOver()
     textAlign(CENTER);
     textSize(50);
     stroke(255);
-    text("Player 2 Wins!", width / 2, height / 2);
+    text("Player 1 Wins!", width / 2, height / 2);
     text("Press 'R' to restart", width / 2, height / 2 + 100);
 
     directionY = 0;
